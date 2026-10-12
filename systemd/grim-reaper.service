@@ -1,0 +1,18 @@
+[Unit]
+Description=Grim Reaper hard-poweroff dead-man switch
+After=local-fs.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/local/bin/grim-reaper daemon
+Restart=always
+RestartSec=1
+UMask=0077
+ProtectSystem=strict
+ReadWritePaths=/var/lib/grim-reaper -/proc/sysrq-trigger /run
+
+[Install]
+WantedBy=multi-user.target
